@@ -1,29 +1,28 @@
 ==========================================
-MySQL Test with CloudWatch Monitoring
+DynamoDB Test with CloudWatch Monitoring
 ==========================================
 
-Compiling test...
-✓ Test compiled successfully
+Configuration:
+  Target URL: http://cs6650l2-alb-1047819063.us-west-2.elb.amazonaws.com
+  Test: test.go
+  Monitoring: monitor_cloudwatch.sh
 
 Starting CloudWatch monitoring...
-Running test...
+Running DynamoDB test...
 
 ============================================================
-Concurrent MySQL Shopping Cart Test (Go)
+Concurrent DynamoDB Shopping Cart Test (Go)
 ============================================================
-Target: http://cs6650l2-alb-1263136994.us-west-2.elb.amazonaws.com
+Target: http://cs6650l2-alb-1047819063.us-west-2.elb.amazonaws.com
 Concurrent Workers: 10
 Total Operations: 150
   - Create Cart: 50
   - Add Items: 50
   - Get Cart: 50
-Output: test_results.json
+Output: dynamodb_test_results.json
 ============================================================
-
-Testing connectivity...
 ✓ Service is healthy
-
-Using customer IDs: 42358 - 42407
+Using customer IDs: 64158 - 64207
 
 Phase 1: Creating shopping carts concurrently...
 ✓ Phase 1 complete
@@ -32,10 +31,11 @@ Phase 2: Adding items to carts concurrently...
 Phase 3: Retrieving carts concurrently...
 ✓ Phase 3 complete
 
+Results saved to: dynamodb_test_results.json
 ============================================================
 TEST SUMMARY
 ============================================================
-Total Duration: 2.10 seconds
+Total Duration: 1.13 seconds
 Total Operations: 150
 Successful: 150
 Failed: 0
@@ -44,22 +44,21 @@ Success Rate: 100.00%
 create_cart:
   Count: 50
   Success: 50/50
-  Avg Response Time: 69.20 ms
-  Min/Max: 63.00/89.00 ms
+  Avg Response Time: 80.89 ms
+  Min/Max: 64.99/128.98 ms
 
 add_items:
   Count: 50
   Success: 50/50
-  Avg Response Time: 72.62 ms
-  Min/Max: 67.00/85.00 ms
+  Avg Response Time: 87.14 ms
+  Min/Max: 70.53/112.84 ms
 
 get_cart:
   Count: 50
   Success: 50/50
-  Avg Response Time: 66.98 ms
-  Min/Max: 62.00/82.00 ms
+  Avg Response Time: 41.32 ms
+  Min/Max: 28.52/83.87 ms
 
-Results saved to: test_results.json
 ✓ Test completed within 5 minutes
 ✓ All operations successful
 ============================================================
@@ -67,84 +66,107 @@ Results saved to: test_results.json
 Waiting for monitoring to complete...
 
 CLOUDWATCH METRICS SUMMARY
-============================================================
+==========================================
 
-📊 RDS Metrics:
-------------------------------------------------------------
-CPU Utilization:      11.78% (min: 3.36%, max: 47.88%)
-Database Connections: 2.06 (min: 0.0, max: 5.0)
-Read IOPS:           5.32 (max: 24.74)
-Write IOPS:          59.47 (max: 238.98)
-Read Latency:        0.0ms (max: 0.0ms)
-Write Latency:       0.0ms (max: 0.0ms)
+Products Table Metrics:
+  Read Capacity:        9 data points
+  Write Capacity:        9 data points
+  GetItem Latency:        9 data points
 
-📊 ECS Metrics:
-------------------------------------------------------------
-CPU Utilization:     2.57% (min: 0.01%, max: 6.92%)
-Memory Utilization:  9.21% (min: 3.97%, max: 11.72%)
+Carts Table Metrics:
+  Read Capacity:        9 data points
+  Write Capacity:        9 data points
+  PutItem Latency:        9 data points
+  GetItem Latency:        9 data points
+  User Errors:        9 data points
 
-📊 ALB Metrics:
-------------------------------------------------------------
+ECS Metrics:
+  CPU Utilization:        9 data points
+  Memory Utilization:        9 data points
 
-============================================================
-All metrics saved to: cloudwatch_metrics/
-============================================================
+ALB Metrics:
+  Response Time:        9 data points
+  Request Count:        9 data points
+  Healthy Hosts:        9 data points
 
-✓ Monitoring complete!
-✓ Metrics saved to: cloudwatch_metrics/
+To analyze metrics, run:
+  python3 generate_dynamodb_report.py
+
 
 ==========================================
 Test and Monitoring Complete!
 ==========================================
 
 Generated files:
-  - mysql_test_results.json (test results)
-  - cloudwatch_metrics/ (all CloudWatch metrics)
-  - monitoring.log (monitoring output)
+  - dynamodb_test_results.json (test results)
+  - cloudwatch_metrics_dynamodb/ (all CloudWatch metrics)
+  - monitoring_dynamodb.log (monitoring output)
 
 Generating comprehensive report...
 
 ======================================================================
-COMPREHENSIVE TEST REPORT
+COMPREHENSIVE DYNAMODB TEST REPORT
 ======================================================================
 
 📊 TEST RESULTS:
 ----------------------------------------------------------------------
-Total Operations:     150
-Successful:           150
+Total Operations:     0
+Successful:           0
 Failed:               0
-Success Rate:         100.00%
+Success Rate:         0.00%
 
 ⏱️  RESPONSE TIMES:
 ----------------------------------------------------------------------
-add_items            avg:  72.62ms  (min:  67.00ms, max:  85.00ms)
-create_cart          avg:  69.20ms  (min:  63.00ms, max:  89.00ms)
-get_cart             avg:  66.98ms  (min:  62.00ms, max:  82.00ms)
+add_items            avg:  87.14ms  (min:  70.53ms, max: 112.84ms)
+create_cart          avg:  80.89ms  (min:  64.99ms, max: 128.98ms)
+get_cart             avg:  41.32ms  (min:  28.52ms, max:  83.87ms)
 
-💾 RDS METRICS:
+📦 PRODUCTS TABLE METRICS:
 ----------------------------------------------------------------------
-CPU Utilization:       11.78% (min:   3.36%, max:  47.88%)
-Database Connections:   2.06 (max:   5.00)
-Read IOPS:             5.32 (max:  24.74)
-Write IOPS:           59.47 (max: 238.98)
-Read Latency:          0.00ms (max:   0.00ms)
-Write Latency:         0.00ms (max:   0.00ms)
+Read Capacity Used:   32.00 units (total:  50.00)
+Write Capacity Used:   0.00 units (total:   0.00)
+GetItem Latency:       1.36ms (max:   1.37ms)
+
+🛒 CARTS TABLE METRICS:
+----------------------------------------------------------------------
+Read Capacity Used:   62.33 units (total: 100.00)
+Write Capacity Used:  66.67 units (total: 100.00)
+PutItem Latency:       5.12ms (max:   5.12ms)
+GetItem Latency:       1.92ms (max:   1.94ms)
 
 🚀 ECS METRICS:
 ----------------------------------------------------------------------
-CPU Utilization:       2.57% (max:   6.92%)
-Memory Utilization:    9.21% (max:  11.72%)
+CPU Utilization:       0.30% (max:   1.05%)
+Memory Utilization:   11.27% (max:  11.91%)
 
 ⚖️  ALB METRICS:
 ----------------------------------------------------------------------
+Response Time:         0.01s (max:   0.01s)
+Total Requests:      151
 
 📈 PERFORMANCE ANALYSIS:
 ----------------------------------------------------------------------
 Grade: A
 
-Excellent performance! All metrics within acceptable ranges.
+Excellent performance! All metrics within acceptable ranges for DynamoDB.
 
 ======================================================================
-Report saved to: comprehensive_report.json
+Report saved to: comprehensive_dynamodb_report.json
 ======================================================================
-✓ Comprehensive report generated: comprehensive_report.json
+
+To compare with MySQL:
+  cat comprehensive_dynamodb_report.json | jq '.performance_grade'
+  cat comprehensive_report.json | jq '.performance_grade'
+======================================================================
+✓ Comprehensive report generated: comprehensive_dynamodb_report.json
+
+To compare with MySQL results:
+  # View DynamoDB performance
+  cat comprehensive_dynamodb_report.json | jq '.performance_grade'
+
+  # View MySQL performance
+  cat comprehensive_report.json | jq '.performance_grade'
+
+  # Compare response times
+  echo 'DynamoDB:' && cat dynamodb_test_results.json | jq '.statistics'
+  echo 'MySQL:' && cat mysql_test_results.json | jq '.statistics'

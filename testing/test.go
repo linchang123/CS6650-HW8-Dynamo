@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"math/rand"
 	"net/http"
 	"os"
@@ -13,423 +12,357 @@ import (
 	"time"
 )
 
-// Configuration
 const (
-	BaseURL     = "http://cs6650l2-alb-1263136994.us-west-2.elb.amazonaws.com" // Update this!
-	OutputFile  = "test_results.json"
-	NumWorkers  = 10 // Number of concurrent workers
+	// CRITICAL: These values must match Part I (MySQL test)
 	NumCreateCart = 50
 	NumAddItems   = 50
 	NumGetCart    = 50
+	TotalOps      = NumCreateCart + NumAddItems + NumGetCart // 150 total
+	
+	NumWorkers    = 10 // Concurrent workers
+	TimeLimit     = 5 * time.Minute
 )
 
-// TestResult represents a single test operation result
+// TestResult represents a single operation result
 type TestResult struct {
 	Operation    string  `json:"operation"`
-	ResponseTime float64 `json:"response_time"`
+	ResponseTime float64 `json:"response_time"` // in milliseconds
 	Success      bool    `json:"success"`
 	StatusCode   int     `json:"status_code"`
 	Timestamp    string  `json:"timestamp"`
 	CustomerID   int     `json:"customer_id,omitempty"`
-	ProductID    int     `json:"product_id,omitempty"`
-	Quantity     int     `json:"quantity,omitempty"`
-	Error        string  `json:"error,omitempty"`
 }
 
-// TestOutput represents the final JSON output
+// TestOutput represents the complete test output
 type TestOutput struct {
-	TestMetadata TestMetadata `json:"test_metadata"`
-	Statistics   Statistics   `json:"statistics"`
-	Results      []TestResult `json:"results"`
+	Results    []TestResult       `json:"results"`
+	Statistics map[string]OpStats `json:"statistics"`
 }
 
-type TestMetadata struct {
-	BaseURL              string  `json:"base_url"`
-	StartTime            string  `json:"start_time"`
-	TotalDurationSeconds float64 `json:"total_duration_seconds"`
-	TotalOperations      int     `json:"total_operations"`
-	ConcurrentWorkers    int     `json:"concurrent_workers"`
+// OpStats represents statistics for an operation type
+type OpStats struct {
+	Count             int     `json:"count"`
+	Successful        int     `json:"successful"`
+	Failed            int     `json:"failed"`
+	AvgResponseTime   float64 `json:"avg_response_time"`
+	MinResponseTime   float64 `json:"min_response_time"`
+	MaxResponseTime   float64 `json:"max_response_time"`
+	TotalResponseTime float64 `json:"total_response_time"`
 }
 
-type Statistics struct {
-	TotalOperations      int                    `json:"total_operations"`
-	SuccessfulOperations int                    `json:"successful_operations"`
-	FailedOperations     int                    `json:"failed_operations"`
-	SuccessRate          float64                `json:"success_rate"`
-	Operations           map[string]OperationStats `json:"operations"`
-}
-
-type OperationStats struct {
-	Count           int     `json:"count"`
-	Successful      int     `json:"successful"`
-	Failed          int     `json:"failed"`
-	AvgResponseTime float64 `json:"avg_response_time"`
-	MinResponseTime float64 `json:"min_response_time"`
-	MaxResponseTime float64 `json:"max_response_time"`
-}
-
-// Thread-safe results storage
-type SafeResults struct {
-	mu      sync.Mutex
-	results []TestResult
-}
-
-func (sr *SafeResults) Add(result TestResult) {
-	sr.mu.Lock()
-	defer sr.mu.Unlock()
-	sr.results = append(sr.results, result)
-}
-
-func (sr *SafeResults) GetAll() []TestResult {
-	sr.mu.Lock()
-	defer sr.mu.Unlock()
-	return sr.results
-}
-
-func getTimestamp() string {
-	return time.Now().UTC().Format("2006-01-02T15:04:05Z")
-}
-
-// createCartWorker creates a shopping cart
-func createCartWorker(customerID int, results *SafeResults, wg *sync.WaitGroup) {
-	defer wg.Done()
-	
-	start := time.Now()
-	
-	payload := map[string]int{"customer_id": customerID}
-	jsonData, _ := json.Marshal(payload)
-	
-	resp, err := http.Post(
-		BaseURL+"/shopping-carts",
-		"application/json",
-		bytes.NewBuffer(jsonData),
-	)
-	
-	responseTime := time.Since(start).Milliseconds()
-	
-	result := TestResult{
-		Operation:    "create_cart",
-		ResponseTime: float64(responseTime),
-		CustomerID:   customerID,
-		Timestamp:    getTimestamp(),
-	}
-	
-	if err != nil {
-		result.Success = false
-		result.StatusCode = 0
-		result.Error = err.Error()
-	} else {
-		defer resp.Body.Close()
-		result.Success = resp.StatusCode == 200 || resp.StatusCode == 201
-		result.StatusCode = resp.StatusCode
-	}
-	
-	results.Add(result)
-}
-
-// addItemsWorker adds items to a cart
-func addItemsWorker(customerID int, results *SafeResults, wg *sync.WaitGroup) {
-	defer wg.Done()
-	
-	start := time.Now()
-	
-	productID := rand.Intn(100000) + 1
-	quantity := rand.Intn(10) + 1
-	
-	payload := map[string]int{
-		"product_id": productID,
-		"quantity":   quantity,
-	}
-	jsonData, _ := json.Marshal(payload)
-	
-	url := fmt.Sprintf("%s/shopping-carts/%d/items", BaseURL, customerID)
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonData))
-	
-	responseTime := time.Since(start).Milliseconds()
-	
-	result := TestResult{
-		Operation:    "add_items",
-		ResponseTime: float64(responseTime),
-		CustomerID:   customerID,
-		ProductID:    productID,
-		Quantity:     quantity,
-		Timestamp:    getTimestamp(),
-	}
-	
-	if err != nil {
-		result.Success = false
-		result.StatusCode = 0
-		result.Error = err.Error()
-	} else {
-		defer resp.Body.Close()
-		result.Success = resp.StatusCode == 200 || resp.StatusCode == 201
-		result.StatusCode = resp.StatusCode
-	}
-	
-	results.Add(result)
-}
-
-// getCartWorker retrieves a cart
-func getCartWorker(customerID int, results *SafeResults, wg *sync.WaitGroup) {
-	defer wg.Done()
-	
-	start := time.Now()
-	
-	url := fmt.Sprintf("%s/shopping-carts/%d", BaseURL, customerID)
-	resp, err := http.Get(url)
-	
-	responseTime := time.Since(start).Milliseconds()
-	
-	result := TestResult{
-		Operation:    "get_cart",
-		ResponseTime: float64(responseTime),
-		CustomerID:   customerID,
-		Timestamp:    getTimestamp(),
-	}
-	
-	if err != nil {
-		result.Success = false
-		result.StatusCode = 0
-		result.Error = err.Error()
-	} else {
-		defer resp.Body.Close()
-		result.Success = resp.StatusCode == 200
-		result.StatusCode = resp.StatusCode
-	}
-	
-	results.Add(result)
-}
-
-// calculateStats computes statistics from results
-func calculateStats(results []TestResult) Statistics {
-	stats := Statistics{
-		TotalOperations: len(results),
-		Operations:      make(map[string]OperationStats),
-	}
-	
-	// Count successes
-	for _, r := range results {
-		if r.Success {
-			stats.SuccessfulOperations++
-		} else {
-			stats.FailedOperations++
-		}
-	}
-	
-	// Calculate success rate
-	if stats.TotalOperations > 0 {
-		stats.SuccessRate = float64(stats.SuccessfulOperations) / float64(stats.TotalOperations) * 100
-	}
-	
-	// Calculate per-operation stats
-	operations := []string{"create_cart", "add_items", "get_cart"}
-	for _, opType := range operations {
-		var opResults []TestResult
-		for _, r := range results {
-			if r.Operation == opType {
-				opResults = append(opResults, r)
-			}
-		}
-		
-		if len(opResults) > 0 {
-			opStats := OperationStats{
-				Count:           len(opResults),
-				MinResponseTime: opResults[0].ResponseTime,
-				MaxResponseTime: opResults[0].ResponseTime,
-			}
-			
-			var totalTime float64
-			for _, r := range opResults {
-				if r.Success {
-					opStats.Successful++
-				} else {
-					opStats.Failed++
-				}
-				
-				totalTime += r.ResponseTime
-				
-				if r.ResponseTime < opStats.MinResponseTime {
-					opStats.MinResponseTime = r.ResponseTime
-				}
-				if r.ResponseTime > opStats.MaxResponseTime {
-					opStats.MaxResponseTime = r.ResponseTime
-				}
-			}
-			
-			opStats.AvgResponseTime = totalTime / float64(len(opResults))
-			stats.Operations[opType] = opStats
-		}
-	}
-	
-	return stats
-}
-
-// testConnectivity checks if the service is reachable
-func testConnectivity() error {
-	fmt.Println("\nTesting connectivity...")
-	
-	resp, err := http.Get(BaseURL + "/health")
-	if err != nil {
-		return fmt.Errorf("cannot reach service: %v", err)
-	}
-	defer resp.Body.Close()
-	
-	if resp.StatusCode == 200 {
-		fmt.Println("✓ Service is healthy")
-		return nil
-	}
-	
-	body, _ := io.ReadAll(resp.Body)
-	return fmt.Errorf("service returned status %d: %s", resp.StatusCode, string(body))
-}
+var (
+	baseURL        string
+	results        []TestResult
+	resultsMutex   sync.Mutex
+	httpClient     *http.Client
+)
 
 func main() {
-	fmt.Println("============================================================")
-	fmt.Println("Concurrent MySQL Shopping Cart Test (Go)")
-	fmt.Println("============================================================")
-	fmt.Printf("Target: %s\n", BaseURL)
-	fmt.Printf("Concurrent Workers: %d\n", NumWorkers)
-	fmt.Printf("Total Operations: %d\n", NumCreateCart+NumAddItems+NumGetCart)
-	fmt.Printf("  - Create Cart: %d\n", NumCreateCart)
-	fmt.Printf("  - Add Items: %d\n", NumAddItems)
-	fmt.Printf("  - Get Cart: %d\n", NumGetCart)
-	fmt.Printf("Output: %s\n", OutputFile)
-	fmt.Println("============================================================")
-	
-	// Test connectivity
-	if err := testConnectivity(); err != nil {
-		log.Fatalf("✗ %v", err)
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: go run dynamodb_test_concurrent.go <ALB_URL>")
+		fmt.Println("Example: go run dynamodb_test_concurrent.go http://your-alb.amazonaws.com")
+		os.Exit(1)
 	}
-	
-	// Initialize
-	results := &SafeResults{}
-	rand.Seed(time.Now().UnixNano())
-	
-	// Generate customer IDs
-	baseCustomerID := rand.Intn(90000) + 10000
+
+	baseURL = os.Args[1]
+	httpClient = &http.Client{Timeout: 30 * time.Second}
+
+	printHeader()
+
+	// Test connectivity
+	if !testConnectivity() {
+		fmt.Println("✗ Service is not accessible")
+		os.Exit(1)
+	}
+	fmt.Println("✓ Service is healthy")
+
+	// Generate unique customer IDs
+	baseCustomerID := rand.Intn(100000) + 10000
+	fmt.Printf("Using customer IDs: %d - %d\n\n", baseCustomerID, baseCustomerID+NumCreateCart-1)
+
+	startTime := time.Now()
+
+	// Phase 1: Create carts concurrently
+	fmt.Println("Phase 1: Creating shopping carts concurrently...")
 	customerIDs := make([]int, NumCreateCart)
 	for i := 0; i < NumCreateCart; i++ {
 		customerIDs[i] = baseCustomerID + i
 	}
 	
-	fmt.Printf("\nUsing customer IDs: %d - %d\n", baseCustomerID, baseCustomerID+NumCreateCart-1)
-	
-	startTime := time.Now()
-	
-	// Phase 1: Create carts concurrently
-	fmt.Println("\nPhase 1: Creating shopping carts concurrently...")
-	var wg sync.WaitGroup
-	semaphore := make(chan struct{}, NumWorkers) // Limit concurrent workers
-	
-	for _, customerID := range customerIDs {
-		wg.Add(1)
-		semaphore <- struct{}{} // Acquire
-		go func(cid int) {
-			defer func() { <-semaphore }() // Release
-			createCartWorker(cid, results, &wg)
-		}(customerID)
-	}
-	wg.Wait()
+	runConcurrent(NumCreateCart, func(i int) {
+		createCart(customerIDs[i])
+	})
 	fmt.Println("✓ Phase 1 complete")
-	
-	// Small delay to ensure carts are created
-	time.Sleep(500 * time.Millisecond)
-	
+
 	// Phase 2: Add items concurrently
 	fmt.Println("Phase 2: Adding items to carts concurrently...")
-	for _, customerID := range customerIDs {
-		wg.Add(1)
-		semaphore <- struct{}{}
-		go func(cid int) {
-			defer func() { <-semaphore }()
-			addItemsWorker(cid, results, &wg)
-		}(customerID)
-	}
-	wg.Wait()
+	runConcurrent(NumAddItems, func(i int) {
+		customerID := customerIDs[i%len(customerIDs)]
+		addItemToCart(customerID)
+	})
 	fmt.Println("✓ Phase 2 complete")
-	
-	// Small delay
-	time.Sleep(500 * time.Millisecond)
-	
+
 	// Phase 3: Get carts concurrently
 	fmt.Println("Phase 3: Retrieving carts concurrently...")
-	for _, customerID := range customerIDs {
-		wg.Add(1)
-		semaphore <- struct{}{}
-		go func(cid int) {
-			defer func() { <-semaphore }()
-			getCartWorker(cid, results, &wg)
-		}(customerID)
-	}
-	wg.Wait()
+	runConcurrent(NumGetCart, func(i int) {
+		customerID := customerIDs[i%len(customerIDs)]
+		getCart(customerID)
+	})
 	fmt.Println("✓ Phase 3 complete")
-	
-	totalDuration := time.Since(startTime).Seconds()
-	
+
+	duration := time.Since(startTime)
+
 	// Calculate statistics
-	allResults := results.GetAll()
-	stats := calculateStats(allResults)
-	
-	// Prepare output
+	stats := calculateStatistics()
+
+	// Create output
 	output := TestOutput{
-		TestMetadata: TestMetadata{
-			BaseURL:              BaseURL,
-			StartTime:            startTime.UTC().Format("2006-01-02T15:04:05Z"),
-			TotalDurationSeconds: totalDuration,
-			TotalOperations:      NumCreateCart + NumAddItems + NumGetCart,
-			ConcurrentWorkers:    NumWorkers,
-		},
+		Results:    results,
 		Statistics: stats,
-		Results:    allResults,
 	}
-	
-	// Save to file
-	file, err := os.Create(OutputFile)
-	if err != nil {
-		log.Fatalf("Error creating output file: %v", err)
-	}
-	defer file.Close()
-	
-	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "  ")
-	if err := encoder.Encode(output); err != nil {
-		log.Fatalf("Error encoding JSON: %v", err)
-	}
-	
+
+	// Save to JSON
+	saveResults(output, "dynamodb_test_results.json")
+
 	// Print summary
-	fmt.Println("\n============================================================")
-	fmt.Println("TEST SUMMARY")
-	fmt.Println("============================================================")
-	fmt.Printf("Total Duration: %.2f seconds\n", totalDuration)
-	fmt.Printf("Total Operations: %d\n", stats.TotalOperations)
-	fmt.Printf("Successful: %d\n", stats.SuccessfulOperations)
-	fmt.Printf("Failed: %d\n", stats.FailedOperations)
-	fmt.Printf("Success Rate: %.2f%%\n", stats.SuccessRate)
-	fmt.Println()
-	
-	for opType, opStats := range stats.Operations {
-		fmt.Printf("%s:\n", opType)
-		fmt.Printf("  Count: %d\n", opStats.Count)
-		fmt.Printf("  Success: %d/%d\n", opStats.Successful, opStats.Count)
-		fmt.Printf("  Avg Response Time: %.2f ms\n", opStats.AvgResponseTime)
-		fmt.Printf("  Min/Max: %.2f/%.2f ms\n", opStats.MinResponseTime, opStats.MaxResponseTime)
-		fmt.Println()
-	}
-	
-	fmt.Printf("Results saved to: %s\n", OutputFile)
-	
-	// Check requirements
-	if totalDuration > 300 {
-		fmt.Printf("⚠ WARNING: Test took longer than 5 minutes (%.2fs)\n", totalDuration)
+	printSummary(duration, stats)
+
+	// Check time limit
+	if duration > TimeLimit {
+		fmt.Printf("⚠ WARNING: Test took longer than 5 minutes (%.2fs)\n", duration.Seconds())
 	} else {
 		fmt.Println("✓ Test completed within 5 minutes")
 	}
-	
-	if stats.SuccessRate == 100 {
+
+	// Check success rate
+	successRate := float64(countSuccessful()) / float64(len(results)) * 100
+	if successRate == 100 {
 		fmt.Println("✓ All operations successful")
 	} else {
-		fmt.Printf("⚠ %d operations failed\n", stats.FailedOperations)
+		fmt.Printf("⚠ Success rate: %.2f%%\n", successRate)
 	}
-	
+
 	fmt.Println("============================================================")
+}
+
+func printHeader() {
+	fmt.Println("============================================================")
+	fmt.Println("Concurrent DynamoDB Shopping Cart Test (Go)")
+	fmt.Println("============================================================")
+	fmt.Printf("Target: %s\n", baseURL)
+	fmt.Printf("Concurrent Workers: %d\n", NumWorkers)
+	fmt.Printf("Total Operations: %d\n", TotalOps)
+	fmt.Printf("  - Create Cart: %d\n", NumCreateCart)
+	fmt.Printf("  - Add Items: %d\n", NumAddItems)
+	fmt.Printf("  - Get Cart: %d\n", NumGetCart)
+	fmt.Println("Output: dynamodb_test_results.json")
+	fmt.Println("============================================================")
+}
+
+func testConnectivity() bool {
+	resp, err := httpClient.Get(baseURL + "/health")
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+	return resp.StatusCode == 200
+}
+
+func runConcurrent(count int, taskFunc func(int)) []int {
+	var wg sync.WaitGroup
+	semaphore := make(chan struct{}, NumWorkers)
+	customerIDs := make([]int, count)
+
+	for i := 0; i < count; i++ {
+		wg.Add(1)
+		go func(index int) {
+			defer wg.Done()
+			semaphore <- struct{}{}        // Acquire
+			taskFunc(index)
+			<-semaphore                    // Release
+		}(i)
+	}
+
+	wg.Wait()
+	return customerIDs
+}
+
+func createCart(customerID int) {
+	startTime := time.Now()
+
+	payload := map[string]int{"customer_id": customerID}
+	jsonData, _ := json.Marshal(payload)
+
+	resp, err := httpClient.Post(
+		baseURL+"/shopping-carts",
+		"application/json",
+		bytes.NewBuffer(jsonData),
+	)
+
+	duration := time.Since(startTime).Seconds() * 1000 // Convert to milliseconds
+
+	result := TestResult{
+		Operation:    "create_cart",
+		ResponseTime: duration,
+		Success:      err == nil && (resp.StatusCode == 200 || resp.StatusCode == 201),
+		Timestamp:    time.Now().UTC().Format(time.RFC3339),
+		CustomerID:   customerID,
+	}
+
+	if resp != nil {
+		result.StatusCode = resp.StatusCode
+		resp.Body.Close()
+	}
+
+	addResult(result)
+}
+
+func addItemToCart(customerID int) {
+	startTime := time.Now()
+
+	productID := rand.Intn(100000) + 1
+	quantity := rand.Intn(5) + 1
+
+	payload := map[string]int{
+		"product_id": productID,
+		"quantity":   quantity,
+	}
+	jsonData, _ := json.Marshal(payload)
+
+	url := fmt.Sprintf("%s/shopping-carts/%d/items", baseURL, customerID)
+	resp, err := httpClient.Post(url, "application/json", bytes.NewBuffer(jsonData))
+
+	duration := time.Since(startTime).Seconds() * 1000
+
+	result := TestResult{
+		Operation:    "add_items",
+		ResponseTime: duration,
+		Success:      err == nil && (resp.StatusCode == 200 || resp.StatusCode == 201),
+		Timestamp:    time.Now().UTC().Format(time.RFC3339),
+		CustomerID:   customerID,
+	}
+
+	if resp != nil {
+		result.StatusCode = resp.StatusCode
+		resp.Body.Close()
+	}
+
+	addResult(result)
+}
+
+func getCart(customerID int) {
+	startTime := time.Now()
+
+	url := fmt.Sprintf("%s/shopping-carts/%d", baseURL, customerID)
+	resp, err := httpClient.Get(url)
+
+	duration := time.Since(startTime).Seconds() * 1000
+
+	result := TestResult{
+		Operation:    "get_cart",
+		ResponseTime: duration,
+		Success:      err == nil && resp.StatusCode == 200,
+		Timestamp:    time.Now().UTC().Format(time.RFC3339),
+		CustomerID:   customerID,
+	}
+
+	if resp != nil {
+		result.StatusCode = resp.StatusCode
+		io.Copy(io.Discard, resp.Body)
+		resp.Body.Close()
+	}
+
+	addResult(result)
+}
+
+func addResult(result TestResult) {
+	resultsMutex.Lock()
+	defer resultsMutex.Unlock()
+	results = append(results, result)
+}
+
+func calculateStatistics() map[string]OpStats {
+	stats := make(map[string]OpStats)
+	opTypes := []string{"create_cart", "add_items", "get_cart"}
+
+	for _, opType := range opTypes {
+		stat := OpStats{
+			MinResponseTime: 999999,
+		}
+
+		for _, result := range results {
+			if result.Operation == opType {
+				stat.Count++
+				stat.TotalResponseTime += result.ResponseTime
+
+				if result.Success {
+					stat.Successful++
+				} else {
+					stat.Failed++
+				}
+
+				if result.ResponseTime < stat.MinResponseTime {
+					stat.MinResponseTime = result.ResponseTime
+				}
+				if result.ResponseTime > stat.MaxResponseTime {
+					stat.MaxResponseTime = result.ResponseTime
+				}
+			}
+		}
+
+		if stat.Count > 0 {
+			stat.AvgResponseTime = stat.TotalResponseTime / float64(stat.Count)
+		}
+
+		stats[opType] = stat
+	}
+
+	return stats
+}
+
+func saveResults(output TestOutput, filename string) {
+	file, err := os.Create(filename)
+	if err != nil {
+		fmt.Printf("Error creating output file: %v\n", err)
+		return
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "  ")
+	if err := encoder.Encode(output); err != nil {
+		fmt.Printf("Error encoding JSON: %v\n", err)
+		return
+	}
+
+	fmt.Printf("\nResults saved to: %s\n", filename)
+}
+
+func printSummary(duration time.Duration, stats map[string]OpStats) {
+	fmt.Println("============================================================")
+	fmt.Println("TEST SUMMARY")
+	fmt.Println("============================================================")
+	fmt.Printf("Total Duration: %.2f seconds\n", duration.Seconds())
+	fmt.Printf("Total Operations: %d\n", len(results))
+	fmt.Printf("Successful: %d\n", countSuccessful())
+	fmt.Printf("Failed: %d\n", len(results)-countSuccessful())
+	fmt.Printf("Success Rate: %.2f%%\n\n", float64(countSuccessful())/float64(len(results))*100)
+
+	for opType, stat := range stats {
+		fmt.Printf("%s:\n", opType)
+		fmt.Printf("  Count: %d\n", stat.Count)
+		fmt.Printf("  Success: %d/%d\n", stat.Successful, stat.Count)
+		fmt.Printf("  Avg Response Time: %.2f ms\n", stat.AvgResponseTime)
+		fmt.Printf("  Min/Max: %.2f/%.2f ms\n\n", stat.MinResponseTime, stat.MaxResponseTime)
+	}
+}
+
+func countSuccessful() int {
+	count := 0
+	for _, result := range results {
+		if result.Success {
+			count++
+		}
+	}
+	return count
 }
