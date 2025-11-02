@@ -1,0 +1,150 @@
+==========================================
+MySQL Test with CloudWatch Monitoring
+==========================================
+
+Compiling test...
+✓ Test compiled successfully
+
+Starting CloudWatch monitoring...
+Running test...
+
+============================================================
+Concurrent MySQL Shopping Cart Test (Go)
+============================================================
+Target: http://cs6650l2-alb-1263136994.us-west-2.elb.amazonaws.com
+Concurrent Workers: 10
+Total Operations: 150
+  - Create Cart: 50
+  - Add Items: 50
+  - Get Cart: 50
+Output: test_results.json
+============================================================
+
+Testing connectivity...
+✓ Service is healthy
+
+Using customer IDs: 42358 - 42407
+
+Phase 1: Creating shopping carts concurrently...
+✓ Phase 1 complete
+Phase 2: Adding items to carts concurrently...
+✓ Phase 2 complete
+Phase 3: Retrieving carts concurrently...
+✓ Phase 3 complete
+
+============================================================
+TEST SUMMARY
+============================================================
+Total Duration: 2.10 seconds
+Total Operations: 150
+Successful: 150
+Failed: 0
+Success Rate: 100.00%
+
+create_cart:
+  Count: 50
+  Success: 50/50
+  Avg Response Time: 69.20 ms
+  Min/Max: 63.00/89.00 ms
+
+add_items:
+  Count: 50
+  Success: 50/50
+  Avg Response Time: 72.62 ms
+  Min/Max: 67.00/85.00 ms
+
+get_cart:
+  Count: 50
+  Success: 50/50
+  Avg Response Time: 66.98 ms
+  Min/Max: 62.00/82.00 ms
+
+Results saved to: test_results.json
+✓ Test completed within 5 minutes
+✓ All operations successful
+============================================================
+
+Waiting for monitoring to complete...
+
+CLOUDWATCH METRICS SUMMARY
+============================================================
+
+📊 RDS Metrics:
+------------------------------------------------------------
+CPU Utilization:      11.78% (min: 3.36%, max: 47.88%)
+Database Connections: 2.06 (min: 0.0, max: 5.0)
+Read IOPS:           5.32 (max: 24.74)
+Write IOPS:          59.47 (max: 238.98)
+Read Latency:        0.0ms (max: 0.0ms)
+Write Latency:       0.0ms (max: 0.0ms)
+
+📊 ECS Metrics:
+------------------------------------------------------------
+CPU Utilization:     2.57% (min: 0.01%, max: 6.92%)
+Memory Utilization:  9.21% (min: 3.97%, max: 11.72%)
+
+📊 ALB Metrics:
+------------------------------------------------------------
+
+============================================================
+All metrics saved to: cloudwatch_metrics/
+============================================================
+
+✓ Monitoring complete!
+✓ Metrics saved to: cloudwatch_metrics/
+
+==========================================
+Test and Monitoring Complete!
+==========================================
+
+Generated files:
+  - mysql_test_results.json (test results)
+  - cloudwatch_metrics/ (all CloudWatch metrics)
+  - monitoring.log (monitoring output)
+
+Generating comprehensive report...
+
+======================================================================
+COMPREHENSIVE TEST REPORT
+======================================================================
+
+📊 TEST RESULTS:
+----------------------------------------------------------------------
+Total Operations:     150
+Successful:           150
+Failed:               0
+Success Rate:         100.00%
+
+⏱️  RESPONSE TIMES:
+----------------------------------------------------------------------
+add_items            avg:  72.62ms  (min:  67.00ms, max:  85.00ms)
+create_cart          avg:  69.20ms  (min:  63.00ms, max:  89.00ms)
+get_cart             avg:  66.98ms  (min:  62.00ms, max:  82.00ms)
+
+💾 RDS METRICS:
+----------------------------------------------------------------------
+CPU Utilization:       11.78% (min:   3.36%, max:  47.88%)
+Database Connections:   2.06 (max:   5.00)
+Read IOPS:             5.32 (max:  24.74)
+Write IOPS:           59.47 (max: 238.98)
+Read Latency:          0.00ms (max:   0.00ms)
+Write Latency:         0.00ms (max:   0.00ms)
+
+🚀 ECS METRICS:
+----------------------------------------------------------------------
+CPU Utilization:       2.57% (max:   6.92%)
+Memory Utilization:    9.21% (max:  11.72%)
+
+⚖️  ALB METRICS:
+----------------------------------------------------------------------
+
+📈 PERFORMANCE ANALYSIS:
+----------------------------------------------------------------------
+Grade: A
+
+Excellent performance! All metrics within acceptable ranges.
+
+======================================================================
+Report saved to: comprehensive_report.json
+======================================================================
+✓ Comprehensive report generated: comprehensive_report.json

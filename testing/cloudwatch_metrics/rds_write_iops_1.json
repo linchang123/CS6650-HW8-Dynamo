@@ -1,0 +1,17 @@
+{
+    "Label": "WriteIOPS",
+    "Datapoints": [
+        {
+            "Timestamp": "2025-11-01T05:58:00+00:00",
+            "Average": 0.36663000366630005,
+            "Maximum": 0.36663000366630005,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2025-11-01T05:57:00+00:00",
+            "Average": 238.97702817676793,
+            "Maximum": 238.97702817676793,
+            "Unit": "Count/Second"
+        }
+    ]
+}

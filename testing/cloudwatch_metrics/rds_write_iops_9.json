@@ -1,0 +1,35 @@
+{
+    "Label": "WriteIOPS",
+    "Datapoints": [
+        {
+            "Timestamp": "2025-11-01T06:02:00+00:00",
+            "Average": 0.6834700273388011,
+            "Maximum": 0.6834700273388011,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2025-11-01T06:03:00+00:00",
+            "Average": 0.11665305714333328,
+            "Maximum": 0.11665305714333328,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2025-11-01T06:01:00+00:00",
+            "Average": 0.26500596263415926,
+            "Maximum": 0.26500596263415926,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2025-11-01T06:00:00+00:00",
+            "Average": 5.585008835984128,
+            "Maximum": 5.585008835984128,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2025-11-01T05:59:00+00:00",
+            "Average": 52.77898176241123,
+            "Maximum": 52.77898176241123,
+            "Unit": "Count/Second"
+        }
+    ]
+}

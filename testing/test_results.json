@@ -1,0 +1,1343 @@
+{
+  "test_metadata": {
+    "base_url": "http://cs6650l2-alb-1263136994.us-west-2.elb.amazonaws.com",
+    "start_time": "2025-11-01T05:59:27Z",
+    "total_duration_seconds": 2.096596417,
+    "total_operations": 150,
+    "concurrent_workers": 10
+  },
+  "statistics": {
+    "total_operations": 150,
+    "successful_operations": 150,
+    "failed_operations": 0,
+    "success_rate": 100,
+    "operations": {
+      "add_items": {
+        "count": 50,
+        "successful": 50,
+        "failed": 0,
+        "avg_response_time": 72.62,
+        "min_response_time": 67,
+        "max_response_time": 85
+      },
+      "create_cart": {
+        "count": 50,
+        "successful": 50,
+        "failed": 0,
+        "avg_response_time": 69.2,
+        "min_response_time": 63,
+        "max_response_time": 89
+      },
+      "get_cart": {
+        "count": 50,
+        "successful": 50,
+        "failed": 0,
+        "avg_response_time": 66.98,
+        "min_response_time": 62,
+        "max_response_time": 82
+      }
+    }
+  },
+  "results": [
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42361
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42367
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42359
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 76,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42360
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 77,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42366
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 77,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42363
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 80,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42364
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 83,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42365
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 87,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42358
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 89,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42362
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42368
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42370
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42369
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42371
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42372
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42373
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42374
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42375
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42376
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42377
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42378
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42379
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42380
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42381
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42382
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42383
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42384
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42385
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42386
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42387
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42388
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42389
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42390
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42391
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42392
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42393
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42395
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42394
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42396
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42397
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 63,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42398
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 63,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42399
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42400
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42402
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42401
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42403
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42404
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42405
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 63,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42406
+    },
+    {
+      "operation": "create_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:27Z",
+      "customer_id": 42407
+    },
+    {
+      "operation": "add_items",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42359,
+      "product_id": 27277,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42363,
+      "product_id": 10286,
+      "quantity": 2
+    },
+    {
+      "operation": "add_items",
+      "response_time": 71,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42358,
+      "product_id": 12164,
+      "quantity": 1
+    },
+    {
+      "operation": "add_items",
+      "response_time": 73,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42366,
+      "product_id": 92183,
+      "quantity": 1
+    },
+    {
+      "operation": "add_items",
+      "response_time": 76,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42360,
+      "product_id": 7711,
+      "quantity": 4
+    },
+    {
+      "operation": "add_items",
+      "response_time": 79,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42367,
+      "product_id": 87590,
+      "quantity": 6
+    },
+    {
+      "operation": "add_items",
+      "response_time": 80,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42361,
+      "product_id": 47266,
+      "quantity": 7
+    },
+    {
+      "operation": "add_items",
+      "response_time": 81,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42365,
+      "product_id": 44905,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 82,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42364,
+      "product_id": 24746,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 85,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42362,
+      "product_id": 75571,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42369,
+      "product_id": 44342,
+      "quantity": 2
+    },
+    {
+      "operation": "add_items",
+      "response_time": 71,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42368,
+      "product_id": 73653,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42370,
+      "product_id": 65600,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42371,
+      "product_id": 85605,
+      "quantity": 7
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42372,
+      "product_id": 36988,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42374,
+      "product_id": 98050,
+      "quantity": 4
+    },
+    {
+      "operation": "add_items",
+      "response_time": 74,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42373,
+      "product_id": 541,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42376,
+      "product_id": 25420,
+      "quantity": 10
+    },
+    {
+      "operation": "add_items",
+      "response_time": 75,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42375,
+      "product_id": 86390,
+      "quantity": 6
+    },
+    {
+      "operation": "add_items",
+      "response_time": 73,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42377,
+      "product_id": 48706,
+      "quantity": 9
+    },
+    {
+      "operation": "add_items",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42378,
+      "product_id": 76078,
+      "quantity": 2
+    },
+    {
+      "operation": "add_items",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42379,
+      "product_id": 88105,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42380,
+      "product_id": 92031,
+      "quantity": 6
+    },
+    {
+      "operation": "add_items",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42381,
+      "product_id": 7286,
+      "quantity": 1
+    },
+    {
+      "operation": "add_items",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42382,
+      "product_id": 59226,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42383,
+      "product_id": 31032,
+      "quantity": 10
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42384,
+      "product_id": 69522,
+      "quantity": 7
+    },
+    {
+      "operation": "add_items",
+      "response_time": 71,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42385,
+      "product_id": 68961,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42386,
+      "product_id": 87413,
+      "quantity": 4
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42387,
+      "product_id": 34990,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 67,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42388,
+      "product_id": 10533,
+      "quantity": 9
+    },
+    {
+      "operation": "add_items",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42389,
+      "product_id": 56570,
+      "quantity": 1
+    },
+    {
+      "operation": "add_items",
+      "response_time": 68,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42390,
+      "product_id": 37984,
+      "quantity": 6
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42391,
+      "product_id": 49288,
+      "quantity": 10
+    },
+    {
+      "operation": "add_items",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42392,
+      "product_id": 37244,
+      "quantity": 2
+    },
+    {
+      "operation": "add_items",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42393,
+      "product_id": 80861,
+      "quantity": 7
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42394,
+      "product_id": 39460,
+      "quantity": 6
+    },
+    {
+      "operation": "add_items",
+      "response_time": 69,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42395,
+      "product_id": 86728,
+      "quantity": 4
+    },
+    {
+      "operation": "add_items",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42396,
+      "product_id": 94096,
+      "quantity": 5
+    },
+    {
+      "operation": "add_items",
+      "response_time": 74,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42397,
+      "product_id": 36637,
+      "quantity": 2
+    },
+    {
+      "operation": "add_items",
+      "response_time": 70,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42398,
+      "product_id": 90481,
+      "quantity": 10
+    },
+    {
+      "operation": "add_items",
+      "response_time": 72,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42399,
+      "product_id": 89183,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 80,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42401,
+      "product_id": 49758,
+      "quantity": 3
+    },
+    {
+      "operation": "add_items",
+      "response_time": 85,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42400,
+      "product_id": 66149,
+      "quantity": 1
+    },
+    {
+      "operation": "add_items",
+      "response_time": 77,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42403,
+      "product_id": 54620,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 79,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42402,
+      "product_id": 29362,
+      "quantity": 4
+    },
+    {
+      "operation": "add_items",
+      "response_time": 71,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42404,
+      "product_id": 25154,
+      "quantity": 5
+    },
+    {
+      "operation": "add_items",
+      "response_time": 80,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42405,
+      "product_id": 70608,
+      "quantity": 8
+    },
+    {
+      "operation": "add_items",
+      "response_time": 76,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42406,
+      "product_id": 85911,
+      "quantity": 10
+    },
+    {
+      "operation": "add_items",
+      "response_time": 73,
+      "success": true,
+      "status_code": 201,
+      "timestamp": "2025-11-01T05:59:28Z",
+      "customer_id": 42407,
+      "product_id": 93606,
+      "quantity": 6
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42358
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42365
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42366
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42362
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 70,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42359
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 72,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42361
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 74,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42363
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 76,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42367
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 79,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42364
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 82,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42360
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42368
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42369
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42370
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42371
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42373
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42372
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42374
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42375
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42376
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42377
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 63,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42378
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42380
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42379
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42381
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42382
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42383
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42384
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42385
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42386
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42387
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42388
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42389
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42390
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42391
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42392
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42393
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 69,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42394
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 64,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42395
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42397
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42396
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 63,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42398
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 62,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42399
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 62,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42400
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 63,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42401
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 65,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42402
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42403
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 67,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42404
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 68,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42405
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 66,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42406
+    },
+    {
+      "operation": "get_cart",
+      "response_time": 70,
+      "success": true,
+      "status_code": 200,
+      "timestamp": "2025-11-01T05:59:29Z",
+      "customer_id": 42407
+    }
+  ]
+}

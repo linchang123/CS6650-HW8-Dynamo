@@ -1,0 +1,17 @@
+{
+    "Label": "ReadIOPS",
+    "Datapoints": [
+        {
+            "Timestamp": "2025-11-01T05:58:00+00:00",
+            "Average": 0.0,
+            "Maximum": 0.0,
+            "Unit": "Count/Second"
+        },
+        {
+            "Timestamp": "2025-11-01T05:57:00+00:00",
+            "Average": 24.74016982800327,
+            "Maximum": 24.74016982800327,
+            "Unit": "Count/Second"
+        }
+    ]
+}
